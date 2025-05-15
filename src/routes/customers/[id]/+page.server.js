@@ -4,7 +4,7 @@ export async function load({params}) {
     if (params.id === 'new') return {customer: {
         id: null, name:'', address: '', phone: '' 
     }};
-    const officer = await prisma.customer.findUnique({
+    const customer = await prisma.customer.findUnique({
         where: {
             id: params.id
         }
