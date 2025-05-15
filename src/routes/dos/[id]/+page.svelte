@@ -1,11 +1,17 @@
 <script>
     import {goto} from '$app/navigation';
     import {enhance} from '$app/forms';
-    import {getUOM, toInputDate, fromInputDate} from '$lib/util.js';
+    import {toInputDate, fromInputDate} from '$lib/util.js';
 
     let {data} = $props();
     let dolines = $state(data._do.dolines);
     
+    function getUOM(itemId) {
+        const item = data.items.find(item => item.id == itemId);
+        return item?.uom ?? ""; 
+    }
+
+
     function addOrderLine() {
         dolines = [...dolines, 
             {do: data._do ?? '',site: {id: null}, item: {id: null}, qty: '', startDate: new Date(), endDate: new Date()}
