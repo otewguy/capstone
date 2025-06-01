@@ -6,19 +6,48 @@
 
 generator client {
   provider = "prisma-client-js"
-  // output   = "../src/generated/prisma"
   output = "../node_modules/.prisma/client"
-  // output = "../generated/@prisma-app/client"
+  previewFeatures=["views"]
 }
+
+/*
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "../erd.svg"
+}
+*/
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String @id @default(uuid())
-  name      String 
+
+view User {
+  id        String @id @db.Uuid
+  email     String? @unique
+  profile   Profile? 
+  officer   Officer? 
+  @@map("user_view")
+}
+
+model Profile {
+  id        String @id @default(uuid()) 
+  name      String
+  phone     String
+  account   String?
+  role      Role? @default(GUEST)
+  user      User @relation(fields: [userId], references: [id])
+  userId    String @unique @db.Uuid
+  files     File[]
+}
+
+model Officer {
+  id        String @id @default(uuid()) 
+  title     String
+  userId    String? @unique @db.Uuid
+  user      User? @relation(fields: [userId], references: [id])
+  sites     Site[]
 }
 
 model Customer {
@@ -36,13 +65,12 @@ model Item {
   dolines   Doline[]
 }
 
-model Officer {
-  id        String @id @default(uuid())
-  name      String
-  phone     String
-  account   String
-  sites     Site[]
+enum Role {
+  ADMIN
+  OFFICER
+  GUEST
 }
+
 
 model Site {
   id        String @id @default(uuid())
@@ -71,6 +99,24 @@ model Doline {
   item      Item @relation(fields: [itemId], references: [id])
   itemId    String
   qty       Int
+  receipt   File?
+  feedback  String?
+  approved  Boolean?
   startDate DateTime
   endDate   DateTime
+}
+
+model File {
+  id        String @id @default(uuid())
+  sId       String @unique
+  path      String @unique
+  name      String
+  size      Int
+  type      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  doline    Doline? @relation(fields: [dolineId], references: [id])
+  dolineId  String? @unique
+  profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String 
 }
