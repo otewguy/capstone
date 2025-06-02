@@ -17,11 +17,7 @@ export const actions = {
             const fileExt = file.name.split('.').pop();
             const fileName = `${Math.random()}.${fileExt}`;
             const filePath = `receipts/${fileName}`;
-            const {data, error} = await supabase.storage.from('photos').upload(filePath, file);
-            console.log('uploading success');
-            console.log(error);
-            console.log(data);
-            const {id, path} = data;
+            const {data: {id, path}, error} = await supabase.storage.from('photos').upload(filePath, file);
             if (error) throw error;
             
             const sId  = id;
@@ -29,9 +25,11 @@ export const actions = {
             const size = file.size;
             const type = file.type;
             const { data: { user } } = await supabase.auth.getUser();
+            console.log('user: ', user);
             const profile = await prisma.profile.findUnique({
                 where: {userId: user.id}
             });
+            console.log('profile: ', profile);
             const doline = await prisma.doline.update({
                 where: {id: params.id},
                 data: {
@@ -45,6 +43,7 @@ export const actions = {
                     feedback: ''
                 }
             });
+            console.log('doline: ', doline);
             return {doline};
         } catch (error) {
             console.error(error);
