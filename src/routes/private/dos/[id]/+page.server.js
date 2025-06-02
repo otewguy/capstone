@@ -1,9 +1,9 @@
 import prisma from '$lib/prisma.server.js';
+import { fail } from '@sveltejs/kit';
 
 function convertFormDataToObject(data) {
     const obj = {};
     for (const [key, value] of data) {
-        console.log(key, value);
         const matches = key.match(/\[(.*?)\]/g);
         if (matches[1]) {
             console.log(matches[0]);
@@ -118,6 +118,8 @@ export const actions = {
                         }
                     });
                 }
+            }, {
+                timeout: 20000
             });
         } catch(error){
             console.log(error);
