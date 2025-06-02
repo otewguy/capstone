@@ -118,8 +118,6 @@ export const actions = {
                         }
                     });
                 }
-            }, {
-                timeout: 20000
             });
         } catch(error){
             console.log(error);
