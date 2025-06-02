@@ -3,7 +3,7 @@ import { fail } from '@sveltejs/kit';
 
 export async function load({params}) {
     const users = await prisma.user.findMany({
-        where: {officer: null},
+        where: {officer: null, profile: {not: null}},
         select: {id: true, email: true}
     });
     const sites = await prisma.site.findMany({
