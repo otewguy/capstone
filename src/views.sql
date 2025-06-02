@@ -1,10 +1,6 @@
-CREATE OR REPLACE VIEW user_view AS
-SELECT 
-id, 
-email, 
-raw_user_meta_data->>'name' AS name,
-raw_user_meta_data->>'role' AS role
-FROM auth.users;
+-----------This is the SQL snippet that is supposed to be run as an SQL Query in Supabase SQL Editor
+-----------This will create a VIEW of the auth.users table that is managed by Supabase
+-----------The view will then be used in prisma as view User 
 
 CREATE OR REPLACE VIEW user_view AS
 SELECT 

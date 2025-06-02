@@ -18,6 +18,7 @@ export const actions = {
             const fileName = `${Math.random()}.${fileExt}`;
             const filePath = `receipts/${fileName}`;
             const {data: {id, path}, error} = await supabase.storage.from('photos').upload(filePath, file);
+            console.log('uploading success');
             if (error) throw error;
             
             const sId  = id;
