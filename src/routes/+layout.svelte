@@ -1,10 +1,10 @@
 <script>
-    import 'milligram/dist/milligram.min.css';
+    // import 'milligram/dist/milligram.min.css';
     import {goto, invalidate} from '$app/navigation';
     import {onMount, setContext} from 'svelte';
     import { redirect } from '@sveltejs/kit';
     import Modal from '$lib/components/Modal.svelte';
-  import Banner from '$lib/components/Banner.svelte';
+    import Banner from '$lib/components/Banner.svelte';
 
     let {data, children} = $props();
     let {session, supabase} = $derived(data);

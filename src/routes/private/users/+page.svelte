@@ -5,8 +5,7 @@
     const modal = getContext('modal');
 </script>
 
-<title>Users Management</title>
-<br>
+<h1>Users Management</h1>
 <table>
     <thead>
         <tr>

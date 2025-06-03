@@ -38,4 +38,4 @@
         {/each}
     </tbody>
 </table>
-<a href={"customers/new"}>Add New Customer</a>
+<a href={"customers/new"}><button>Add New Customer</button></a>

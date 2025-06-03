@@ -45,7 +45,7 @@
                 <td>{doline.site.officer.user.profile.name}</td>
                 <td>{doline.item.name}</td>
                 <td>{doline.qty}</td>
-                <td><img src={getURL(doline.receipt?.path)} alt={doline.receipt?.name}/></td>
+                <td><img src={getURL(doline.receipt?.path)} alt={doline.receipt?.name} height=100 width=100/></td>
                 <td>{doline.feedback}</td>
                 <td>{doline.status}</td>
                 <td>
