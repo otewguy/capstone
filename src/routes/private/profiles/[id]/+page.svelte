@@ -27,7 +27,7 @@
     <label for="account">Account Number</label>
     <input type="text" id="name" name="account" value={data.profile.account}><br>
     <label for="userId">User</label>
-    <select name="userId">
+    <select name="userId" required>
         <option value="">Select a user by email address (optional)</option>
         {#each data.users as user}
             {#if user.id === data.profile.userId}
