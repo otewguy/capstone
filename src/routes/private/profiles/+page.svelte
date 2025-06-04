@@ -6,7 +6,6 @@
 </script>
 
 <h1>Profiles Management</h1>
-<br>
 <table>
     <thead>
         <tr>

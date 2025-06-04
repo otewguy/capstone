@@ -50,7 +50,7 @@ export async function load({params}) {
     const customers = await prisma.customer.findMany();
     if (params.id === 'new') return {
         _do: {id: null, number: '', customer: '', date: new Date(), dolines: [
-            {do: '', site: '', item: '', qty: '', startDate: new Date(), endDate: new Date()}
+            {do: '', site: {id: null}, item: {id: null}, qty: '', startDate: new Date(), endDate: new Date()}
         ]},
         sites, items, customers
     };

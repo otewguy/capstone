@@ -1,6 +1,10 @@
 <script>
+  import { onMount } from 'svelte';
+  import { scale } from 'svelte/transition';
+
     let {data} = $props();
     let {supabase} = $derived(data);
+    let html2pdf;
 
     function getURL(path) {
         if (path) {
@@ -10,19 +14,60 @@
             return '';
         }
     }
+
+    async function loadImageAsDataUrl(url) {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+        });
+    }
+
+    onMount(async()=> {
+        html2pdf = (await import('html2pdf.js')).default;
+    });
+
+    async function printToPdf() {
+        if (typeof window !== 'undefined' && html2pdf) {
+            const page = document.getElementById('page');
+
+            const images = page.querySelectorAll('img[src^="http"]');
+                for (const img of images) {
+                    try {
+                        const dataUrl = await loadImageAsDataUrl(img.src);
+                        img.src = dataUrl;
+                    } catch (error) {
+                        console.error('Failed to load image:', img.src, error);
+                        img.style.display = 'none'; // Hide if can't load
+                    }
+                }
+    
+            const options = {
+                filename: `BAST ${data._do.customer.name} ${data._do.number} ${data._do.project}.pdf`,
+                margin: 10,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 3, useCORS: true, allowTaint: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+            html2pdf().set(options).from(page).save();
+        }
+    }   
+
 </script>
+    <button type="button" class="no-print" onclick={printToPdf}>Save as PDF</button>
 
+<div id="page">
 <h1 style="text-align: center">Berita Acara Serah Terima</h1>
-<hr/>
 <h3>This report is for: </h3>
-<ul>
-    <li>Customer : {data._do.customer.name}</li>
-    <li>DO Number: {data._do.number}</li>
-    <li>Project  : {data._do.project}</li>
-</ul>
-
-<hr/>
-
+<p>
+Customer : {data._do.customer.name}<br>
+DO Number: {data._do.number}<br>
+Project  : {data._do.project}<br>
+</p>
 
 <table>
     <thead>
@@ -47,15 +92,9 @@
                     <img src={getURL(doline.receipt.path)} alt={doline.receipt.name} height=100 width=100>
                 </td>
             </tr>
-            <!-- <tr>
-                <td colspan="5">
-                    <img src={getURL(doline.receipt.path)} alt={doline.receipt.name} height=500 width=500>
-                </td>
-            </tr> -->
         {/each}
     </tbody>
 </table>
-<hr/>
 
 <p>Demikianlah berita acara ini dibuat agar dapat dipergunakan sebagaimana mestinya</p>
 
@@ -68,8 +107,8 @@
     </thead>
     <tbody>
         <tr>
-            <td></td>
-            <td></td>
+            <td><br><br><br></td>
+            <td><br><br><br></td>
         </tr>
         <tr>
             <td>Customer</td>
@@ -77,3 +116,13 @@
         </tr>
     </tbody>
 </table>
+</div>
+
+<style>
+  /* Hide the button when printing */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+  }
+</style>

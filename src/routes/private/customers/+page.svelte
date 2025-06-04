@@ -6,7 +6,6 @@
 </script>
 
 <h1>Customers Management</h1>
-<br>
 <table>
     <thead>
         <tr>

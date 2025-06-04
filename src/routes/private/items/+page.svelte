@@ -6,7 +6,6 @@
 </script>
 
 <h1>Items Management</h1>
-<br>
 <table>
     <thead>
         <tr>
@@ -36,4 +35,4 @@
         {/each}
     </tbody>
 </table>
-<a href={"items/new"}>Add New Item</a>
+<a href={"items/new"}><button>Add New Item</button></a>

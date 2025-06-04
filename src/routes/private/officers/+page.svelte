@@ -6,7 +6,6 @@
 </script>
 
 <h1>Officers Management</h1>
-<br>
 <table>
     <thead>
         <tr>

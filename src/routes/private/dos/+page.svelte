@@ -11,7 +11,6 @@
 </script>
 
 <h1>DO Management</h1>
-<br>
 <table>
     <thead>
         <tr>
