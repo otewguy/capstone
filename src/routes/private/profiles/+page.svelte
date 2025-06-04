@@ -25,7 +25,6 @@
                 <td>{profile.account}</td>
                 <td>{profile.user.email}</td>
                 <td>{profile.role}</td>
-                <td></td>
                 <td><a href={"profiles/"+profile.id}><button>Edit</button></a></td>
                 <td>
                     <form style="all:revert" method="POST" action="?/delete" use:enhance={()=>{
