@@ -15,7 +15,7 @@ export const actions = {
             const profile = await prisma.profile.findUnique({
                 where: {userId: user.id}
             });
-            return {success: true, role: profile.role};
+            return {success: true, role: profile?.role ?? null};
         }
     }
 }
