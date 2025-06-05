@@ -43,11 +43,9 @@ const authGuard = async({event, resolve}) => {
     } 
 
     if (event.locals.session) {
-        if (event.locals.role !== 'ADMIN' && !event.url.pathname.startsWith("/private/dolines")) {
-            redirect(303,'/private');
-        } else if (event.locals.role !== 'OFFICER' && event.locals.role !== 'ADMIN' && event.url.pathname.startsWith("/private/dolines")) {
-            redirect(303,'/private');
-        }
+        if (event.locals.role === 'OFFICER' && !event.url.pathname.startsWith("/private/dolines")) {
+            redirect(303,'/private/dolines');
+        } 
     }
 
     return resolve(event);
