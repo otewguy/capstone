@@ -26,7 +26,6 @@
 		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.49.8",
 		"dotenv": "^16.5.0",
-		"html2pdf.js": "^0.10.3",
-		"milligram": "^1.4.1"
+		"html2pdf.js": "^0.10.3"
 	}
 }

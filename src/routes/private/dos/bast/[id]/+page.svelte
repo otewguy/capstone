@@ -1,6 +1,5 @@
 <script>
-  import { onMount } from 'svelte';
-  import { scale } from 'svelte/transition';
+    import { onMount } from 'svelte';
 
     let {data} = $props();
     let {supabase} = $derived(data);

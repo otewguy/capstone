@@ -4,6 +4,8 @@
     const modal = getContext('modal');
 </script>
 
-Welcome
+<h1>Welcome</h1>
+<p>Please choose your menu</p>
+
 
 

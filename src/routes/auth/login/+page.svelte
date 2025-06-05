@@ -5,6 +5,7 @@
 
 
   const modal = getContext('modal');
+  const login = getContext('login');
 </script>
 
 <h1>Login</h1>
@@ -13,6 +14,8 @@
         if (result.type === 'failure') {
           modal.notify('Fail', result.data.error);
         } else if (result.type === 'success') {
+          login.isLoggedIn = true;
+          login.role = result.data.role;
           goto('/private');
         }
     };
