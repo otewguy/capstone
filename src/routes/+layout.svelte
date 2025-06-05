@@ -7,7 +7,7 @@
 
     let {data, children} = $props();
     let {session, user, supabase} = $derived(data);
-    let isLoggedIn = $state(false);
+    let isLoggedIn = $state(true);
     let role = $state(null);
 
     role = data.role ?? null;
